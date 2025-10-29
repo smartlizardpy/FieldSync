@@ -12,6 +12,8 @@ import "./app.css";
 import { AuthProvider } from "./contexts/auth";
 
 export const links: Route.LinksFunction = () => [
+  { rel: "icon", type: "image/png", href: "/logo.png" },
+  { rel: "apple-touch-icon", href: "/logo.png" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",

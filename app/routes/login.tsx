@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router";
 import type { Route } from "./+types/login";
 import { signInWithGoogle } from "../firebase/client";
 import { useAuth } from "../contexts/auth";
+import { BrandMark, BrandWordmark } from "../components/brand";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -47,9 +48,10 @@ export default function LoginRoute() {
     <main className="min-h-screen bg-slate-50 text-slate-900">
       <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-8 px-6 py-16">
         <div className="space-y-3 text-center">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-500 to-emerald-400 text-lg font-semibold text-white shadow">
-            FS
-          </span>
+          <div className="mx-auto flex max-w-xs flex-col items-center gap-3">
+            <BrandMark size="lg" />
+            <BrandWordmark />
+          </div>
           <h1 className="text-3xl font-semibold tracking-tight">Welcome back to FieldSync</h1>
           <p className="text-sm text-slate-500">
             Sign in to access your session workspace, location logs, and registered cameras.

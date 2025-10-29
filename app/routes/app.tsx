@@ -7,6 +7,7 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useAuth } from "../contexts/auth";
 import { getFirebaseFirestore } from "../firebase/client";
 import { MobilePrompt } from "../welcome/welcome";
+import { BrandMark, BrandWordmark } from "../components/brand";
 
 type Camera = {
   id: string;
@@ -260,10 +261,11 @@ function WorkspaceHeader({
   return (
     <header className="flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-slate-200 bg-white/90 px-6 py-6 shadow-sm backdrop-blur">
       <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-500 to-emerald-400 text-lg font-semibold text-white shadow">
-          FS
+        <BrandMark size="lg" className="hidden sm:flex" />
+        <div className="hidden sm:block">
+          <BrandWordmark />
         </div>
-        <div>
+        <div className="sm:border-l sm:border-slate-200 sm:pl-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
             FieldSync Workspace
           </p>

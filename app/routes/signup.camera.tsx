@@ -14,6 +14,7 @@ import {
 import type { Route } from "./+types/signup.camera";
 import { useAuth } from "../contexts/auth";
 import { getFirebaseFirestore } from "../firebase/client";
+import { BrandMark, BrandWordmark } from "../components/brand";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -39,6 +40,7 @@ export default function SignupCameraRoute() {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cameras, setCameras] = useState<Camera[]>([]);
+  const canContinue = cameras.length > 0;
 
   useEffect(() => {
     if (!loading && !user) {
@@ -103,7 +105,11 @@ export default function SignupCameraRoute() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
       <div className="mx-auto flex min-h-screen max-w-3xl flex-col gap-10 px-6 py-12">
-        <header className="space-y-3 text-center">
+        <header className="space-y-4 text-center">
+          <div className="mx-auto flex max-w-xs flex-col items-center gap-3">
+            <BrandMark size="lg" />
+            <BrandWordmark />
+          </div>
           <p className="text-xs font-semibold uppercase tracking-wide text-sky-600">Step 2 of 2</p>
           <h1 className="text-3xl font-semibold tracking-tight">Add your first camera</h1>
           <p className="text-sm text-slate-500 sm:text-base">
@@ -176,8 +182,16 @@ export default function SignupCameraRoute() {
             Your cameras sync to the desktop workspace and mobile capture tool automatically.
           </p>
           <Link
-            to="/app"
-            className="mt-4 inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-slate-800"
+            to={canContinue ? "/app" : "#"}
+            onClick={(event) => {
+              if (!canContinue) event.preventDefault();
+            }}
+            aria-disabled={!canContinue}
+            className={`mt-4 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition ${
+              canContinue
+                ? "bg-slate-900 hover:-translate-y-0.5 hover:bg-slate-800"
+                : "cursor-not-allowed bg-slate-400"
+            }`}
           >
             Go to workspace
             <span aria-hidden>→</span>

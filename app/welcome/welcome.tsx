@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { BrandMark, BrandSignature } from "../components/brand";
 
 export function MobilePrompt() {
   const isMobile =
@@ -12,9 +13,7 @@ export function MobilePrompt() {
   return (
     <div className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:hidden">
       <div className="pointer-events-auto flex w-full max-w-sm items-center gap-4 rounded-[28px] border border-slate-200 bg-white/95 px-4 py-3 shadow-[0_20px_60px_rgba(15,23,42,0.08)]">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-500 to-emerald-400 text-sm font-semibold text-white">
-          FS
-        </div>
+        <BrandMark size="sm" />
         <div className="flex-1 text-xs leading-snug text-slate-600">
           To add FieldSync to your home screen, tap here to open the mobile experience.
         </div>
@@ -41,22 +40,13 @@ export function Welcome() {
     <main className="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
       <MobilePrompt />
       <div className="relative isolate overflow-hidden">
-        <div className="absolute inset-x-0 -top-48 -z-10 transform-gpu blur-3xl">
-          <div className="mx-auto h-[32rem] w-[64rem] bg-gradient-to-r from-sky-300/40 via-emerald-300/30 to-rose-300/40 opacity-60 dark:from-sky-500/20 dark:via-emerald-500/20 dark:to-rose-500/20" />
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute inset-x-0 -top-60 h-[40rem] bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.35),_transparent_60%)]" />
+          <div className="absolute inset-x-10 top-96 h-[28rem] bg-[radial-gradient(circle_at_bottom,_rgba(16,185,129,0.25),_transparent_65%)]" />
         </div>
-        <header className="border-b border-slate-200/70 bg-white/70 backdrop-blur dark:border-slate-800 dark:bg-slate-900/30">
-          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-6">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-emerald-400 text-white shadow-lg shadow-sky-500/30 dark:shadow-none">
-                <span className="text-lg font-semibold">PH</span>
-              </div>
-              <div>
-                <p className="text-lg font-semibold tracking-tight">FieldSync</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">
-                  GPS tagging for photographers
-                </p>
-              </div>
-            </div>
+        <header className="border-b border-slate-200/70 bg-white/90 backdrop-blur supports-backdrop-blur:bg-white/80 dark:border-slate-800 dark:bg-slate-900/60">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-6 py-5">
+            <BrandSignature />
             <nav className="flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
               <Link
                 className="transition hover:text-slate-900 dark:hover:text-white"
@@ -79,7 +69,7 @@ export function Welcome() {
             </nav>
             <Link
               to="/signup"
-              className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-50 shadow-lg shadow-slate-900/20 transition hover:shadow-xl hover:shadow-slate-900/25 dark:bg-slate-50 dark:text-slate-900"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-slate-900 via-slate-800 to-sky-700 px-6 py-3 text-sm font-semibold text-slate-50 shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:shadow-xl dark:bg-slate-50 dark:text-slate-900"
             >
               Join the beta
               <span aria-hidden>→</span>
@@ -87,13 +77,13 @@ export function Welcome() {
           </div>
         </header>
 
-        <section className="mx-auto flex max-w-6xl flex-col gap-16 px-6 pb-24 pt-16 lg:flex-row lg:items-center lg:pt-24">
+        <section className="mx-auto flex max-w-6xl flex-col gap-16 px-6 pb-28 pt-20 lg:flex-row lg:items-center lg:pt-28">
           <div className="flex-1 space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-500 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-400">
-              Built for photographers
+            <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-500 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-400">
+              Built for modern studios
             </span>
             <h1 className="text-4xl font-semibold leading-tight tracking-tight text-slate-900 dark:text-white sm:text-5xl">
-              Geo-mark every shot without slowing down your post-shoot flow.
+              FieldSync connects your camera IDs with every coordinate you capture.
             </h1>
             <p className="max-w-xl text-lg text-slate-600 dark:text-slate-300">
               FieldSync pairs your camera&apos;s file numbers with live GPS from your phone.
@@ -103,9 +93,9 @@ export function Welcome() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/app"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:bg-emerald-400 hover:shadow-emerald-400/50"
+                className="inline-flex.items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/40 transition hover:-translate-y-0.5 hover:bg-emerald-400 hover:shadow-emerald-400/50"
               >
-                Upload a shoot
+                Open workspace
                 <span aria-hidden>⇪</span>
               </Link>
               <a
@@ -276,9 +266,55 @@ export function Welcome() {
         </aside>
       </section>
 
+      <section className="border-t border-slate-200 bg-white py-16 dark:border-slate-800 dark:bg-slate-900">
+        <div className="mx-auto flex max-w-5xl flex-col gap-10 px-6 lg:flex-row lg:items-center">
+          <div className="relative flex h-48 w-48 flex-none overflow-hidden rounded-[32px] shadow-xl shadow-slate-900/10 ring-1 ring-slate-200 lg:h-56 lg:w-56 dark:ring-slate-800">
+            <img src="/ozan.png" alt="Ozan" className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-slate-900/20 via-transparent to-sky-500/10" />
+          </div>
+          <div className="flex-1 space-y-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-sky-600 dark:text-sky-400">
+              Meet the author
+            </p>
+            <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">
+              FieldSync is crafted by Ozan
+            </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              Ozan is a photographer and developer who built FieldSync to eliminate the friction between creative flow and accurate location data. Each feature—from quick anchors on your phone to structured session dashboards—comes from real-world shoot experience.
+            </p>
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              When he\'s not capturing coordinates, you\'ll find him experimenting with lighting setups, exploring coastal trails, or refining the FieldSync roadmap for teams everywhere.
+            </p>
+            <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+              <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              Built in Northern UK · Shipping worldwide
+            </div>
+          </div>
+        </div>
+      </section>
       <footer className="border-t border-slate-200/70 bg-white/80 py-10 text-sm text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
-          <p>© {new Date().getFullYear()} FieldSync. Crafted for photographers.</p>
+          <p className="text-center sm:text-left">
+            © {new Date().getFullYear()} FieldSync. Made with {"❤️"} by{" "}
+            <a
+              className="font-semibold text-slate-700 underline transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+              href="https://ozankaygusuz.pages.dev"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Ozan
+            </a>
+            . My personal site:{" "}
+            <a
+              className="font-semibold text-slate-700 underline transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+              href="https://ozankaygusuz.pages.dev"
+              target="_blank"
+              rel="noreferrer"
+            >
+              ozankaygusuz.pages.dev
+            </a>
+            .
+          </p>
           <div className="flex items-center gap-4">
             <a className="transition hover:text-slate-800 dark:hover:text-white" href="#">
               Privacy
