@@ -55,7 +55,7 @@ export default function OtgRoute() {
 function OnTheGoCapture() {
   const { user, loading } = useAuth();
   const [entries, setEntries] = useState<CaptureEntry[]>([]);
-  const [cameras, setCameras] = useState<{ id: string; label: string }[]>([]);
+  const [cameras, setCameras] = useState<{ id: string; label: string; prefix: string }[]>([]);
   const [formDigits, setFormDigits] = useState("");
   const [prefix, setPrefix] = useState("DSC_");
   const [note, setNote] = useState("");
@@ -118,11 +118,16 @@ function OnTheGoCapture() {
             typeof data.label === "string" && data.label.trim().length > 0
               ? data.label
               : "Untitled camera",
+          prefix:
+            typeof data.prefix === "string" && data.prefix.trim().length > 0
+              ? data.prefix
+              : "DSC_",
         };
       });
       setCameras(docs);
       if (docs.length > 0 && !cameraId) {
         setCameraId(docs[0]!.id);
+        setPrefix(docs[0]!.prefix);
       }
     });
 
@@ -139,6 +144,13 @@ function OnTheGoCapture() {
 
   const canSaveWithoutLocation =
     captureState.status === "error" && formDigits.trim().length > 0;
+
+  useEffect(() => {
+    const selected = cameras.find((camera) => camera.id === cameraId);
+    if (selected && selected.prefix && prefix !== selected.prefix) {
+      setPrefix(selected.prefix);
+    }
+  }, [cameras, cameraId]);
 
   if (loading) {
     return <LoadingScreen message="Preparing the capture tool…" />;
@@ -216,6 +228,7 @@ function OnTheGoCapture() {
   async function handleSaveWithoutLocation() {
     if (!user || !formDigits.trim()) return;
     const uid = user.uid;
+    const trimmedNote = note.trim();
     try {
       setCaptureState({ status: "locating" });
       await persistAnchor(uid, {
@@ -223,7 +236,7 @@ function OnTheGoCapture() {
         latitude: null,
         longitude: null,
         accuracy: undefined,
-        notes: note,
+        notes: trimmedNote,
         cameraId,
       });
       setCaptureState({ status: "success" });
@@ -323,7 +336,7 @@ function OnTheGoCapture() {
                 >
                   {cameras.map((camera) => (
                     <option key={camera.id} value={camera.id}>
-                      {camera.label}
+                      {camera.label} ({camera.prefix})
                     </option>
                   ))}
                   <option value="">Unspecified</option>

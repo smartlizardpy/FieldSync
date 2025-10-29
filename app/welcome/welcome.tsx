@@ -1,8 +1,45 @@
+import { useState } from "react";
 import { Link } from "react-router";
+
+export function MobilePrompt() {
+  const isMobile =
+    typeof navigator !== "undefined" && /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  const [dismissed, setDismissed] = useState(false);
+
+  if (!isMobile || dismissed) return null;
+
+  return (
+    <div className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:hidden">
+      <div className="pointer-events-auto flex w-full max-w-sm items-center gap-4 rounded-[28px] border border-slate-200 bg-white/95 px-4 py-3 shadow-[0_20px_60px_rgba(15,23,42,0.08)]">
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-500 to-emerald-400 text-sm font-semibold text-white">
+          FS
+        </div>
+        <div className="flex-1 text-xs leading-snug text-slate-600">
+          To add FieldSync to your home screen, tap here to open the mobile experience.
+        </div>
+        <Link
+          to="/app/otg"
+          className="rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm"
+        >
+          Open
+        </Link>
+        <button
+          type="button"
+          onClick={() => setDismissed(true)}
+          className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-500"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function Welcome() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+      <MobilePrompt />
       <div className="relative isolate overflow-hidden">
         <div className="absolute inset-x-0 -top-48 -z-10 transform-gpu blur-3xl">
           <div className="mx-auto h-[32rem] w-[64rem] bg-gradient-to-r from-sky-300/40 via-emerald-300/30 to-rose-300/40 opacity-60 dark:from-sky-500/20 dark:via-emerald-500/20 dark:to-rose-500/20" />
@@ -40,10 +77,13 @@ export function Welcome() {
                 Preview
               </a>
             </nav>
-            <button className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-50 shadow-lg shadow-slate-900/20 transition hover:shadow-xl hover:shadow-slate-900/25 dark:bg-slate-50 dark:text-slate-900">
+            <Link
+              to="/signup"
+              className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-50 shadow-lg shadow-slate-900/20 transition hover:shadow-xl hover:shadow-slate-900/25 dark:bg-slate-50 dark:text-slate-900"
+            >
               Join the beta
               <span aria-hidden>→</span>
-            </button>
+            </Link>
           </div>
         </header>
 

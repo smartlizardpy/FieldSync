@@ -6,12 +6,14 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 import { useAuth } from "../contexts/auth";
 import { getFirebaseFirestore } from "../firebase/client";
+import { MobilePrompt } from "../welcome/welcome";
 
 type Camera = {
   id: string;
   label: string;
   serial: string;
   lens: string;
+  prefix: string;
 };
 
 type Anchor = {
@@ -172,6 +174,7 @@ function SessionWorkspace() {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
+      <MobilePrompt />
       <div className="mx-auto max-w-6xl px-6 py-10 sm:py-14">
         <WorkspaceHeader totalPhotos={stats.totalPhotos} withLocations={stats.withLocations} />
 
@@ -206,6 +209,8 @@ function mapCamera(doc: QueryDocumentSnapshot<DocumentData>): Camera {
     label: typeof data.label === "string" && data.label.trim().length > 0 ? data.label : "Untitled camera",
     serial: typeof data.serial === "string" && data.serial.trim().length > 0 ? data.serial : "—",
     lens: typeof data.lens === "string" && data.lens.trim().length > 0 ? data.lens : "—",
+    prefix:
+      typeof data.prefix === "string" && data.prefix.trim().length > 0 ? data.prefix : "DSC_",
   };
 }
 
@@ -488,30 +493,28 @@ function InfoItem({ label, value }: { label: string; value: string }) {
 }
 
 function MiniMap({ latitude, longitude }: { latitude: number; longitude: number }) {
-  const x = ((longitude + 180) / 360) * 100;
-  const y = ((90 - latitude) / 180) * 100;
+  const hasValidCoords = Number.isFinite(latitude) && Number.isFinite(longitude);
+
+  if (!hasValidCoords) {
+    return (
+      <div className="flex h-64 w-full items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm text-slate-500">
+        No coordinates available for this anchor.
+      </div>
+    );
+  }
+
+  const url = `https://www.google.com/maps?q=${latitude.toFixed(6)},${longitude.toFixed(6)}&z=14&output=embed`;
 
   return (
-    <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white">
-      <div
-        className="absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            "linear-gradient(0deg, rgba(148,163,184,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.15) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
+    <div className="h-64 w-full overflow-hidden rounded-2xl border border-slate-200">
+      <iframe
+        title="Anchor location"
+        src={url}
+        className="h-full w-full"
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
       />
-      <div className="absolute inset-x-12 top-10 h-40 rounded-full bg-sky-100/40 blur-3xl" />
-      <div
-        className="absolute flex h-8 w-8 items-center justify-center rounded-full bg-sky-500 text-sm font-semibold text-white shadow-lg shadow-sky-500/30"
-        style={{
-          left: `calc(${x}% - 16px)`,
-          top: `calc(${y}% - 16px)`,
-        }}
-      >
-        ◎
-      </div>
-      <div className="absolute inset-6 rounded-2xl border border-slate-200/60" />
     </div>
   );
 }
@@ -610,6 +613,7 @@ function CameraSummary({ cameras }: { cameras: Camera[] }) {
             <p className="text-xs text-slate-500">
               Serial {camera.serial} · {camera.lens}
             </p>
+            <p className="text-xs text-slate-500">Prefix {camera.prefix}</p>
           </li>
         ))}
         {cameras.length === 0 && (

@@ -22,6 +22,7 @@ type Camera = {
   label: string;
   serial: string;
   lens: string;
+  prefix: string;
 };
 
 type TeamMember = {
@@ -65,7 +66,7 @@ function AccountSettings() {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC",
   });
   const [cameras, setCameras] = useState<Camera[]>([]);
-  const [form, setForm] = useState({ label: "", serial: "", lens: "" });
+  const [form, setForm] = useState({ label: "", serial: "", lens: "", prefix: "DSC_" });
   const [profileLoaded, setProfileLoaded] = useState(false);
 
   useEffect(() => {
@@ -136,17 +137,19 @@ function AccountSettings() {
     event.preventDefault();
     if (!user) return;
     if (!form.label.trim()) return;
+    const trimmedPrefix = form.prefix.trim();
 
     const payload = {
       label: form.label.trim(),
       serial: form.serial.trim() || "—",
       lens: form.lens.trim() || "—",
+      prefix: trimmedPrefix.length > 0 ? trimmedPrefix : "DSC_",
       createdAt: serverTimestamp(),
     };
 
     try {
       await addDoc(collection(getFirebaseFirestore(), "users", user.uid, "cameras"), payload);
-      setForm({ label: "", serial: "", lens: "" });
+      setForm({ label: "", serial: "", lens: "", prefix: payload.prefix });
     } catch (error) {
       console.error("Failed to add camera", error);
     }
@@ -213,6 +216,10 @@ function mapCamera(docSnapshot: QueryDocumentSnapshot<DocumentData>): Camera {
       typeof data.lens === "string" && data.lens.trim().length > 0
         ? data.lens
         : "—",
+    prefix:
+      typeof data.prefix === "string" && data.prefix.trim().length > 0
+        ? data.prefix
+        : "DSC_",
   };
 }
 
@@ -309,8 +316,8 @@ function CameraManager({
   onAddCamera,
 }: {
   cameras: Camera[];
-  form: { label: string; serial: string; lens: string };
-  onFormChange: (form: { label: string; serial: string; lens: string }) => void;
+  form: { label: string; serial: string; lens: string; prefix: string };
+  onFormChange: (form: { label: string; serial: string; lens: string; prefix: string }) => void;
   onAddCamera: (event: React.FormEvent<HTMLFormElement>) => void;
 }) {
   return (
@@ -356,6 +363,16 @@ function CameraManager({
               className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200"
             />
           </label>
+          <label className="flex flex-col gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Filename prefix
+            <input
+              type="text"
+              value={form.prefix}
+              onChange={(event) => onFormChange({ ...form, prefix: event.target.value.toUpperCase() })}
+              placeholder="DSC_"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200"
+            />
+          </label>
         </div>
         <div className="flex justify-end">
           <button
@@ -379,7 +396,7 @@ function CameraManager({
               Serial {camera.serial} · {camera.lens}
             </p>
             <p className="mt-2 text-xs text-slate-500">
-              Saved as <span className="font-semibold text-slate-900">{camera.id}</span> — FieldSync uses this ID when matching files.
+              Prefix <span className="font-semibold text-slate-900">{camera.prefix}</span> · Saved as <span className="font-semibold text-slate-900">{camera.id}</span>
             </p>
           </li>
         ))}
