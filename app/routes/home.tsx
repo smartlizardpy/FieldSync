@@ -3,8 +3,12 @@ import { Welcome } from "../welcome/welcome";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "FieldSync · Camera IDs meet accurate locations" },
+    {
+      name: "description",
+      content:
+        "FieldSync keeps your camera filenames aligned with phone GPS logs so every photo has the right location.",
+    },
   ];
 }
 
