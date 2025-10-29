@@ -19,7 +19,7 @@ export function meta({}: Route.MetaArgs) {
     },
     { property: "og:image", content: "/card.png" },
     { property: "og:url", content: "https://fieldsync.pages.dev" },
-    { name: "twitter:card", content: "card.png" },
+    { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: "FieldSync · Camera IDs meet accurate locations" },
     {
       name: "twitter:description",
