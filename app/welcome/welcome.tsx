@@ -99,7 +99,9 @@ export function Welcome() {
                 <span aria-hidden>⇪</span>
               </Link>
               <a
-                href="#preview"
+                href="https://www.youtube.com/watch?v=RcXg4mYrPFw"
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:text-white"
               >
                 Watch demo
@@ -138,6 +140,42 @@ export function Welcome() {
           </div>
         </section>
       </div>
+
+      <section
+        id="demo"
+        className="border-t border-slate-200 bg-white py-16 dark:border-slate-800 dark:bg-slate-900"
+      >
+        <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6 lg:flex-row lg:items-center">
+          <div className="flex-1 space-y-5">
+            <p className="text-xs font-semibold uppercase tracking-wide text-sky-600 dark:text-sky-400">
+              Watch FieldSync in action
+            </p>
+            <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">
+              See how fast you can log anchors and match locations
+            </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              This short walkthrough shows the on-the-go capture flow, dashboard overview, and
+              how prefixes keep everything organised. Captions are forced on so you can follow
+              along even if audio is muted or unavailable.
+            </p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Tip: Use the fullscreen button for the clearest view of the UI.
+            </p>
+          </div>
+          <div className="flex-1">
+            <div className="relative w-full overflow-hidden rounded-[28px] border border-slate-200 bg-slate-900 shadow-xl shadow-slate-900/10 ring-1 ring-slate-200 dark:border-slate-800 dark:ring-slate-700">
+              <div className="pb-[56.25%]" />
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src="https://www.youtube.com/embed/RcXg4mYrPFw?rel=0&modestbranding=1&cc_load_policy=1"
+                title="FieldSync demo video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section
         id="capture"
@@ -295,7 +333,7 @@ export function Welcome() {
       <footer className="border-t border-slate-200/70 bg-white/80 py-10 text-sm text-slate-500 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
           <p className="text-center sm:text-left">
-            © {new Date().getFullYear()} FieldSync. Made with {"❤️"} by{" "}
+            © {new Date().getFullYear()} FieldSync. Made with {"<3"} by{" "}
             <a
               className="font-semibold text-slate-700 underline transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
               href="https://ozankaygusuz.pages.dev"
