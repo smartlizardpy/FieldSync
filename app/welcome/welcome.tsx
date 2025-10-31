@@ -99,7 +99,7 @@ export function Welcome() {
                 <span aria-hidden>⇪</span>
               </Link>
               <a
-                href="https://www.youtube.com/watch?v=RcXg4mYrPFw"
+                href="https://www.youtube.com/watch?v=QJ854fFNHcQ"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:text-white"
@@ -155,8 +155,7 @@ export function Welcome() {
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-300">
               This short walkthrough shows the on-the-go capture flow, dashboard overview, and
-              how prefixes keep everything organised. Captions are forced on so you can follow
-              along even if audio is muted or unavailable.
+              how prefixes keep everything organised. 
             </p>
             <p className="text-xs text-slate-500 dark:text-slate-400">
               Tip: Use the fullscreen button for the clearest view of the UI.
@@ -167,7 +166,7 @@ export function Welcome() {
               <div className="pb-[56.25%]" />
               <iframe
                 className="absolute inset-0 h-full w-full"
-                src="https://www.youtube.com/embed/RcXg4mYrPFw?rel=0&modestbranding=1&cc_load_policy=1"
+                src="https://www.youtube.com/embed/QJ854fFNHcQ?rel=0&modestbranding=1&cc_load_policy=1"
                 title="FieldSync demo video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
